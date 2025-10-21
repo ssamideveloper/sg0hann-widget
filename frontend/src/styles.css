@@ -1,0 +1,7 @@
+body { background: transparent; font-family:'Poppins',sans-serif; color:#fff; text-align:center; }
+.overlay-container { width:700px; padding:20px; }
+.goal-container { background:#1e1e1e; border-radius:20px; box-shadow:6px 6px 12px #141414, -6px -6px 12px #2a2a2a; width:600px; height:60px; margin:auto; overflow:hidden; position:relative;}
+.goal-bar { background: linear-gradient(90deg,#7e22ce,#9333ea); height:100%; border-radius:20px; transition:width 1s ease;}
+.goal-text { position:absolute; width:100%; top:50%; transform:translateY(-50%); font-weight:500; font-size:20px; letter-spacing:0.5px;}
+.top-supporter { margin-top:12px; font-size:18px; color:#c084fc; text-shadow:0 0 6px rgba(147,51,234,0.5);}
+.top-supporter strong { color:#fff;}
