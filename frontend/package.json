@@ -9,10 +9,11 @@
     "react-scripts": "^5.0.1",
     "socket.io-client": "^4.7.5"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
-  },
+ "scripts": {
+  "prebuild": "chmod +x node_modules/.bin/react-scripts",
+  "build": "react-scripts build",
+  "start": "react-scripts start"
+},
   "browserslist": {
     "production": [
       ">0.2%",
