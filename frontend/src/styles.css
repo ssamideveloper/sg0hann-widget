@@ -1,7 +1,123 @@
-body { background: transparent; font-family:'Poppins',sans-serif; color:#fff; text-align:center; }
-.overlay-container { width:700px; padding:20px; }
-.goal-container { background:#1e1e1e; border-radius:20px; box-shadow:6px 6px 12px #141414, -6px -6px 12px #2a2a2a; width:600px; height:60px; margin:auto; overflow:hidden; position:relative;}
-.goal-bar { background: linear-gradient(90deg,#7e22ce,#9333ea); height:100%; border-radius:20px; transition:width 1s ease;}
-.goal-text { position:absolute; width:100%; top:50%; transform:translateY(-50%); font-weight:500; font-size:20px; letter-spacing:0.5px;}
-.top-supporter { margin-top:12px; font-size:18px; color:#c084fc; text-shadow:0 0 6px rgba(147,51,234,0.5);}
-.top-supporter strong { color:#fff;}
+/* ---------- Global ---------- */
+body { 
+  background: transparent; 
+  font-family: 'Poppins', sans-serif; 
+  color: #fff; 
+  text-align: center; 
+  margin: 0; 
+  padding: 0;
+}
+
+/* ---------- Overlay Container ---------- */
+.overlay-container { 
+  width: 700px; 
+  padding: 20px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Goal Container ---------- */
+.goal-container { 
+  background: #1e1e1e; 
+  border-radius: 20px; 
+  box-shadow: 6px 6px 12px #141414, -6px -6px 12px #2a2a2a; 
+  width: 600px; 
+  height: 60px; 
+  margin: auto; 
+  overflow: hidden; 
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ---------- Goal Bar ---------- */
+.goal-bar { 
+  background: linear-gradient(90deg, #7e22ce, #9333ea); 
+  height: 100%; 
+  border-radius: 20px; 
+  transition: width 1s ease, box-shadow 0.5s ease;
+  box-shadow: inset 2px 2px 6px rgba(0,0,0,0.3), inset -2px -2px 6px rgba(255,255,255,0.1);
+}
+
+/* ---------- Goal Text ---------- */
+.goal-text { 
+  position: absolute; 
+  width: 100%; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  font-weight: 600; 
+  font-size: 22px; 
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  pointer-events: none;
+}
+
+/* ---------- Top Supporter ---------- */
+.top-supporter { 
+  margin-top: 16px; 
+  font-size: 20px; 
+  color: #c084fc; 
+  text-shadow: 0 0 8px rgba(147,51,234,0.7); 
+  background: rgba(30,30,30,0.6);
+  padding: 8px 20px; 
+  border-radius: 15px;
+  box-shadow: 4px 4px 10px #141414, -4px -4px 10px #2a2a2a;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Top supporter strong */
+.top-supporter strong { 
+  color: #fff; 
+}
+
+/* Hover animation for top supporter */
+.top-supporter:hover {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 14px #141414, -6px -6px 14px #2a2a2a;
+}
+
+/* ---------- Bar Glow Effect ---------- */
+.goal-bar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(147,51,234,0.6), 0 0 40px rgba(147,51,234,0.3);
+  opacity: 0.6;
+}
+
+/* ---------- Additional Shadows for Neumorphism ---------- */
+.goal-container::before, .goal-container::after {
+  content: '';
+  position: absolute;
+  border-radius: 20px;
+}
+.goal-container::before {
+  top: -4px; left: -4px;
+  width: calc(100% + 8px); height: calc(100% + 8px);
+  box-shadow: -6px -6px 12px #2a2a2a;
+}
+.goal-container::after {
+  top: 4px; left: 4px;
+  width: calc(100% - 8px); height: calc(100% - 8px);
+  box-shadow: 6px 6px 12px #141414;
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 768px) {
+  .overlay-container { width: 90%; padding: 15px; }
+  .goal-container { width: 90%; height: 50px; }
+  .goal-text { font-size: 18px; }
+  .top-supporter { font-size: 16px; padding: 6px 14px; }
+}
+
+/* ---------- Smooth transitions ---------- */
+.goal-bar, .goal-container, .top-supporter {
+  transition: all 0.5s ease-in-out;
+}

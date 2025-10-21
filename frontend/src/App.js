@@ -8,31 +8,35 @@ function App() {
   const [topSupporter, setTopSupporter] = useState({ name: '—', points: 0 });
   const goal = 20000;
 
-  // Determine backend URL
   const backendURL = process.env.REACT_APP_BACKEND || 'http://localhost:3001';
 
+  // Compute gradient based on points
+  function getBarGradient(points, goal) {
+    const percent = Math.min(points / goal, 1);
+    if (percent < 0.5) return 'linear-gradient(90deg, #7e22ce, #9333ea)';  // Purple
+    if (percent < 0.8) return 'linear-gradient(90deg, #9333ea, #ec4899)';  // Pink
+    return 'linear-gradient(90deg, #10b981, #3b82f6)';                     // Green
+  }
+
   useEffect(() => {
-    // --- 1️⃣ Fetch initial points ---
+    // Fetch initial points
     fetch(`${backendURL}/current`)
       .then(res => res.json())
       .then(data => setPoints(data.currentPoints))
       .catch(err => console.error('Fetch error:', err));
 
-    // --- 2️⃣ Setup Socket.io connection ---
     const socket = io(backendURL);
-
     socket.on('updateGoal', data => setPoints(data.currentPoints));
     socket.on('updateTopSupporter', top => setTopSupporter(top));
 
-    // --- 3️⃣ Optional polling fallback ---
+    // Polling fallback
     const interval = setInterval(() => {
       fetch(`${backendURL}/current`)
         .then(res => res.json())
         .then(data => setPoints(data.currentPoints))
         .catch(() => {});
-    }, 5000); // every 5 seconds
+    }, 5000);
 
-    // Cleanup on unmount
     return () => {
       socket.disconnect();
       clearInterval(interval);
@@ -44,7 +48,10 @@ function App() {
       <div className='goal-container'>
         <div
           className='goal-bar'
-          style={{ width: `${Math.min(100, (points / goal) * 100)}%` }}
+          style={{
+            width: `${Math.min(100, (points / goal) * 100)}%`,
+            background: getBarGradient(points, goal)
+          }}
         ></div>
         <div className='goal-text'>Goal: {points} / {goal}</div>
       </div>
