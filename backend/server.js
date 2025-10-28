@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import { Server } from 'socket.io';
 import http from 'http';
 import cron from 'node-cron';
-import fetch from 'node-fetch'; // npm install node-fetch@2
 import crypto from 'crypto';
 
 const app = express();
@@ -86,7 +85,7 @@ const callbackURL = process.env.EVENTSUB_CALLBACK_URL;
 
 let accessToken = '';
 
-// Get Twitch App Access Token
+// Get Twitch App Access Token (Node 18+ supports global fetch)
 async function getAccessToken() {
   const resp = await fetch(`https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`, {
     method: 'POST'
