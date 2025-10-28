@@ -10,26 +10,28 @@ function App() {
 
   const backendURL = process.env.REACT_APP_BACKEND || 'http://localhost:3001';
 
-  // Compute gradient based on points
+  // Gradient for progress bar
   function getBarGradient(points, goal) {
     const percent = Math.min(points / goal, 1);
-    if (percent < 0.5) return 'linear-gradient(90deg, #7e22ce, #9333ea)';  // Purple
-    if (percent < 0.8) return 'linear-gradient(90deg, #9333ea, #ec4899)';  // Pink
-    return 'linear-gradient(90deg, #10b981, #3b82f6)';                     // Green
+    if (percent < 0.5) return 'linear-gradient(90deg, #7e22ce, #9333ea)';
+    if (percent < 0.8) return 'linear-gradient(90deg, #9333ea, #ec4899)';
+    return 'linear-gradient(90deg, #10b981, #3b82f6)';
   }
 
   useEffect(() => {
-    // Fetch initial points
+    // Fetch initial points from backend
     fetch(`${backendURL}/current`)
       .then(res => res.json())
       .then(data => setPoints(data.currentPoints))
       .catch(err => console.error('Fetch error:', err));
 
+    // Connect to backend Socket.IO for live updates
     const socket = io(backendURL);
+
     socket.on('updateGoal', data => setPoints(data.currentPoints));
     socket.on('updateTopSupporter', top => setTopSupporter(top));
 
-    // Polling fallback
+    // Poll fallback (optional)
     const interval = setInterval(() => {
       fetch(`${backendURL}/current`)
         .then(res => res.json())
